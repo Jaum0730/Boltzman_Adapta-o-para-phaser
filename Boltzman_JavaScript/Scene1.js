@@ -10,8 +10,8 @@ class Scene1 extends Phaser.Scene {
         frameHeight: 30
       });
       this.load.spritesheet("explosion","assets/Efects/Explosion1.png",{
-        frameWidth: 40.5,
-        frameHeight: 53
+        frameWidth: 53,
+        frameHeight: 39.66
       });
       
       
@@ -25,3 +25,4 @@ class Scene1 extends Phaser.Scene {
         this.scene.start("playGame");
     }
   }
+  

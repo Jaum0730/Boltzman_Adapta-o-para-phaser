@@ -1,14 +1,14 @@
 # `<Boltzman Lagrange>`
 
-* Link do jogo: https://github.com/Jaum0730/Boltzman-Lagrange.git
+* Link do jogo: https://github.com/Jaum0730/Boltzman_Adapta-o-para-phaser/tree/main
 
 ## Motivação
 
-UM DOS MOTIVOS PARA A CRIAÇÃO É MELHORAR UM PROJETO DO INICIO DA MINHA GRADUAÇÃO O TRANSFORMANDO EM ALGO MAIS ACESSÍVEL 
+UM DOS MOTIVOS PARA A CRIAÇÃO É MELHORAR UM PROJETO DO INICIO DA MINHA GRADUAÇÃO O TRANSFORMANDO EM ALGO MAIS ACESSÍVEL
 
 ## Objetivo
 
-UM JOGO SIMPLES PORÉM DESAAFIADOR PARA JOGAR NO BROWSER
+UM JOGO SIMPLES PORÉM DESAFIADOR PARA JOGAR NO BROWSER
 
 ## Valor Agregado
 
@@ -16,22 +16,19 @@ DIFERENTE DE SEU PREDECESSOR AGORA ESSA NOVA VERSÃO SE ENCONTRA DISPONIVEL NO G
 
 ## Fases
 
-DESCREVA AS FASES DO JOGO.
-
-| Fases |                                                 Descrição                                              |
-| ----- | ------------------------------------------------------------------------------------------------------ |
-| 1     | O jogo possui apenas uma única fase que só termina quando o boss morre ou a nave é destruida           |
+| Fases | Descrição                                                                                     |
+| ----- | ----------------------------------------------------------------------------------------------- |
+| 1     | O jogo possui apenas uma única fase que só termina quando o boss morre ou a nave é destruida |
 
 ## Esquema de Pontuação
 
 Os pontos são ganhos ao destruir inimigos e asteroids.
 
-| Inimigo       |   Pontos  |
-| ------------- | --------- |
-| Alien         |   5 pts   |
-| Alien Chefe   |   100 pts |
-| Asteroi       |   2 pts   |
-
+| Inimigo     | Pontos  |
+| ----------- | ------- |
+| Alien       | 5 pts   |
+| Alien Chefe | 100 pts |
+| Asteroi     | 2 pts   |
 
 ## Requisitos
 
@@ -43,12 +40,11 @@ Os pontos são ganhos ao destruir inimigos e asteroids.
 
 ### Personas
 
-1. ****
+1. ---
 
 ## Protótipos de Tela
 
-DIAGRAMA COM O PROTOTIPO DO JOGO
 
 ## Tecnologias e Ferramentas utilizadas
 
-1. QUAIS TECNOLOGIAS UTILIZADAS.
+1. Foram utilizadas JavaScript, o framework Phaser 3.0 e html
