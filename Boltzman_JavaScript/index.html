@@ -2,12 +2,38 @@
 <html>
     <head>
         <title>Phaser Game</title>
+    </head>
+    <body>
+        
         <script type="text/javascript" src="phaser.min.js"></script>
         <script type="text/javascript" src="Scene1.js"></script>
         <script type="text/javascript" src="Scene2.js"></script>
         <script type="text/javascript" src="game.js"></script>
-    </head>
-    <body>
             
     </body>
+    <script>
+        function toggleFullScreen() {
+            var doc = window.document;
+            var docEl = doc.documentElement;
+    
+            var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+            var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+    
+            if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+                requestFullScreen.call(docEl);
+            }
+            else {
+                cancelFullScreen.call(doc);
+            }
+        }
+    
+    </script>
+
+
+
+
+
+
+
+
 </html>

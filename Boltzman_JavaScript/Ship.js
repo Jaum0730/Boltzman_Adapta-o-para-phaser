@@ -1,11 +1,13 @@
 class Ship extends Phaser.GameObjects.Sprite {
-    constructor( x, y) {
-      super( x, y);
-      scene.add.existing(Scene2);
-  
+    constructor(scene, x, y) {
+      super(scene, x, y);
+      scene.add.existing(x / 2 - 50,y / 2, "ship");
+
+      
+      /*
       // Tornando o objeto "nave" interativo
       this.setInteractive();
-      this.on('pointerdown', this.destroyShip, this);
+      this.on('pointerdown', this.destroyShip, scene, this);
   
       // Criando a animação da nave
       scene.anims.create({
@@ -15,7 +17,8 @@ class Ship extends Phaser.GameObjects.Sprite {
         repeat: -1
       });
       this.play('ship_animation');
-    }
+    }*/}
+    /*
   
     destroyShip() {
       // Animando a explosão
@@ -39,7 +42,7 @@ class Ship extends Phaser.GameObjects.Sprite {
     resetPosition() {
       this.y = 0;
       this.x = Phaser.Math.Between(0, this.scene.scale.width);
-    }
+    }*/
   }
   
-  export default Ship;
+  
