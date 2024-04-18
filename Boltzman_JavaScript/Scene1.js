@@ -4,6 +4,7 @@ class Scene1 extends Phaser.Scene {
     }
   
     preload(){
+      
       this.load.image("background2", "assets/Sprite_Sheet_backgrounds/Background2.png");
       this.load.spritesheet("ship", "assets/Sprite_Sheet_Ships/Model1/1.png",{
         frameWidth: 32,
@@ -20,10 +21,27 @@ class Scene1 extends Phaser.Scene {
     }
   
     create() {
-        
-        this.add.text(20, 20, "Loading game...");
+      // Create the loading text
+      this.loadingText = this.add.text(this.game.renderer.width/2, 430, "Loading game...", { fontSize: '32px' });
+      
+      // Set up the loading animation
+      this.loadingAnimation = this.tweens.add({
+        targets: this.loadingText,
+        alpha: 0.5, // Fade the text in and out
+        duration: 1500, // Animation duration in milliseconds
+        ease: 'Sine.easeInOut', // Easing function
+        loop: -1, // Loop the animation infinitely
+        yoyo: true // Make the animation go back and forth
+      });
+    
+      // Start the actual game scene after a short delay
+      this.time.delayedCall(2000, () => {
         this.scene.start("playGame");
+      });
+        
+        
     }
+    
   }
   
   
