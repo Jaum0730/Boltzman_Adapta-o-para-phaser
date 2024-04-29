@@ -12,7 +12,7 @@ class Menu extends Phaser.Scene{
 
     create(){
     
-
+        
 
         //=================================Botões do Menu================================//
         this.playButton = this.add.text(this.game.renderer.width / 2, 300, 'PLAY', { font:'37px Orbitron', fill: '#f7f2ad' })

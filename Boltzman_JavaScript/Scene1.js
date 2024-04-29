@@ -6,7 +6,7 @@ class Scene1 extends Phaser.Scene {
     preload(){
       
       this.load.image("background2", "assets/Sprite_Sheet_backgrounds/Background2.png");
-      this.load.spritesheet("ship", "assets/Sprite_Sheet_Ships/Model1/1.png",{
+      this.load.spritesheet("ship_player", "assets/Sprite_Sheet_Ships/Model1/1.png",{
         frameWidth: 32,
         frameHeight: 30
       });
@@ -14,6 +14,10 @@ class Scene1 extends Phaser.Scene {
         frameWidth: 53,
         frameHeight: 39.66
       });
+      this.load.spritesheet("asteroid", "assets/Sprite_Sheet_backgrounds/Asteroid.png",{
+        frameWidth : 50,
+        frameHeight: 15
+      })
       
       
       
@@ -22,7 +26,7 @@ class Scene1 extends Phaser.Scene {
   
     create() {
       // Create the loading text
-      this.loadingText = this.add.text(this.game.renderer.width/2, 430, "Loading game...", { fontSize: '32px' });
+      this.loadingText = this.add.text(this.game.renderer.width/2, 430, "Loading game...", { fontSize: '32px Orbitron' });
       
       // Set up the loading animation
       this.loadingAnimation = this.tweens.add({
@@ -38,6 +42,9 @@ class Scene1 extends Phaser.Scene {
       this.time.delayedCall(2000, () => {
         this.scene.start("playGame");
       });
+
+
+      
         
         
     }
