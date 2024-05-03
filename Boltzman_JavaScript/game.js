@@ -1,3 +1,9 @@
+var gameSettings = {
+    playerSpeed: 200,
+
+
+
+}
 var config = {
 
     width:  window.innerWidth,

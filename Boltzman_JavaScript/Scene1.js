@@ -17,8 +17,15 @@ class Scene1 extends Phaser.Scene {
       this.load.spritesheet("asteroid", "assets/Sprite_Sheet_backgrounds/Asteroid.png",{
         frameWidth : 50,
         frameHeight: 15
-      })
-      
+      });
+      this.load.spritesheet("laser_beam", "Boltzman_JavaScript/assets/Efects/beam.png",{
+        frameWidth : 10,
+        frameHeight: 19
+      });
+      this.load.spritesheet("missil_beam", "assets/missel.png",{
+        frameWidth : 10,
+        frameHeight: 19
+      });
       
       
       
@@ -27,16 +34,57 @@ class Scene1 extends Phaser.Scene {
     create() {
       // Create the loading text
       this.loadingText = this.add.text(this.game.renderer.width/2, 430, "Loading game...", { fontSize: '32px Orbitron' });
+
+      //animação da nave do player
+      this.anims.create({
+        key: "ship_animation",
+        frames: this.anims.generateFrameNumbers("ship_player"),
+        frameRate: 10,
+        repeat: -1
+     });
+    //animação disparo
+    this.anims.create({
+      key: "beam",
+      frames: this.anims.generateFrameNumbers("laser_beam"),
+      frameRate: 10,
+      repeat: -1
+    });
+
+  this.anims.create({
+    key: "missel",
+    frames: this.anims.generateFrameNumbers("missel_beam"),
+    frameRate: 10,
+    repeat: -1
+  });
+
+
+    
+    //Animação de efeitos
+      this.anims.create({
+      key: "explosion_animation",
+      frames: this.anims.generateFrameNumbers("explosion"),
+      frameRate: 10,
+      repeat: 0,
+      hideOnComplete: true,
+      });
+
+    //Animação asteroid
+      this.anims.create({
+      key: "asteroid_animation",
+      frames: this.anims.generateFrameNumbers("asteroid"),
+      frameRate: 15,
+      repeat: -1,
       
+      });
       // Set up the loading animation
-      this.loadingAnimation = this.tweens.add({
+        this.loadingAnimation = this.tweens.add({
         targets: this.loadingText,
         alpha: 0.5, // Fade the text in and out
         duration: 1500, // Animation duration in milliseconds
         ease: 'Sine.easeInOut', // Easing function
         loop: -1, // Loop the animation infinitely
         yoyo: true // Make the animation go back and forth
-      });
+        });
     
       // Start the actual game scene after a short delay
       this.time.delayedCall(2000, () => {

@@ -9,39 +9,22 @@ class Scene2 extends Phaser.Scene{
       this.background2.setPosition(100,100);
       this.background2.setScale(2);
   
-      //Logica para naves
-        this.ship1 = this.add.sprite(config.width/2+50, config.height/2, "ship_player");
-        this.ship1.setScale(2);
+      //Logica para nave do jogador
+        this.player = this.physics.add.sprite(config.width/2+50, config.height/2, "ship_player");
+        this.player.setScale(2);
         //Animação das naves
-        this.anims.create({
-          key: "ship_animation",
-          frames: this.anims.generateFrameNumbers("ship_player"),
-          frameRate: 10,
-          repeat: -1
-      });
-      
-      //Animação de efeitos
-      this.anims.create({
-        key: "explosion_animation",
-        frames: this.anims.generateFrameNumbers("explosion"),
-        frameRate: 10,
-        repeat: 0,
-        hideOnComplete: true,
-      });
-
-      //Animação asteroid
-      this.anims.create({
-        key: "asteroid_animation",
-        frames: this.anims.generateFrameNumbers("asteroid"),
-        frameRate: 15,
-        repeat: -1,
-        
-      });
+        this.player.play("ship_animation");
+        //setando controles da nave
+        this.cursorKeys = this.input.keyboard.createCursorKeys();
+        //setando os colisores
+        this.player.setCollideWorldBounds(true);
+        //botão para disparos
+        this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
       
       
-      this.ship1.play("ship_animation");
-      this.ship1.setInteractive();
-      this.ship1.destroyShip = this.destroyShip;
+      
+      this.player.setInteractive();
+      this.player.destroyShip = this.destroyShip;
       this.input.on("gameobjectdown", this.destroyShip, this);
   
         
@@ -49,8 +32,10 @@ class Scene2 extends Phaser.Scene{
       this.add.text(20, 20, "Playing game", {font: "25px Arial", fill: "yellow"});
     };
     update(){
-      this.aceleration_ship(this.ship1,1);
-      
+      //função para mover inimigos
+      //this.aceleration_ship(this.player,0);
+
+      this.movePlayer();
       
       
       
@@ -73,6 +58,33 @@ class Scene2 extends Phaser.Scene{
       gameObject.setTexture("explosion");
       gameObject.play("explosion_animation");
     };
+
+    movePlayer(){
+      if(this.cursorKeys.left.isDown){
+          this.player.setVelocityX(-gameSettings.playerSpeed);
+        }
+        else if(this.cursorKeys.right.isDown){
+          this.player.setVelocityX(gameSettings.playerSpeed);
+          
+        }
+
+      if(this.cursorKeys.up.isDown){
+        this.player.setVelocityY(-gameSettings.playerSpeed);
+
+      }
+      else if (this.cursorKeys.down.isDown){
+        this.player.setVelocityY(gameSettings.playerSpeed);
+
+      }
+
+      if(Phaser.Input.Keyboard.JustDown(this.spacebar)){
+        console.log("Fogo!!!");
+      }
+
+
+
+
+    }
     
   }
   
