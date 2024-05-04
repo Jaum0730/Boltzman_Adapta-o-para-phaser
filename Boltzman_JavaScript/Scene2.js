@@ -20,6 +20,8 @@ class Scene2 extends Phaser.Scene{
         this.player.setCollideWorldBounds(true);
         //botão para disparos
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        //grupo com os projteis
+        this.projectiles = this.add.group();
       
       
       
@@ -32,15 +34,29 @@ class Scene2 extends Phaser.Scene{
       this.add.text(20, 20, "Playing game", {font: "25px Arial", fill: "yellow"});
     };
     update(){
-      //função para mover inimigos
-      //this.aceleration_ship(this.player,0);
+      
+      
 
       this.movePlayer();
+
+      for(var i = 0; i < this.projectiles.getChildren().length; i++){
+        var beam = this.projectiles.getChildren()[i];
+        beam.update();
+
+      }
+      
+      
       
       
       
     };
     
+    Laser_Shot(){
+      var beam = new Beam(this);
+      beam.setScale(2);
+      
+    };
+
     aceleration_ship(ship, speed){
       ship.y += speed; 
       if(ship.y > config.height){
@@ -58,33 +74,31 @@ class Scene2 extends Phaser.Scene{
       gameObject.setTexture("explosion");
       gameObject.play("explosion_animation");
     };
-
+    
     movePlayer(){
       if(this.cursorKeys.left.isDown){
-          this.player.setVelocityX(-gameSettings.playerSpeed);
+        this.player.setVelocityX(-gameSettings.playerSpeed);
         }
         else if(this.cursorKeys.right.isDown){
           this.player.setVelocityX(gameSettings.playerSpeed);
           
         }
+        
+        if(this.cursorKeys.up.isDown){
+          this.player.setVelocityY(-gameSettings.playerSpeed);
+          
+        }
+        else if (this.cursorKeys.down.isDown){
+          this.player.setVelocityY(gameSettings.playerSpeed);
+          
+        }
+        if(Phaser.Input.Keyboard.JustDown(this.spacebar)){
+          console.log("fogo!");
+          this.Laser_Shot();
+        }
+        
+      };
 
-      if(this.cursorKeys.up.isDown){
-        this.player.setVelocityY(-gameSettings.playerSpeed);
-
-      }
-      else if (this.cursorKeys.down.isDown){
-        this.player.setVelocityY(gameSettings.playerSpeed);
-
-      }
-
-      if(Phaser.Input.Keyboard.JustDown(this.spacebar)){
-        console.log("Fogo!!!");
-      }
-
-
-
-
-    }
     
   }
   

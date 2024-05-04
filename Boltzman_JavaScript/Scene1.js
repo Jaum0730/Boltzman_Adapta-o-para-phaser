@@ -18,13 +18,13 @@ class Scene1 extends Phaser.Scene {
         frameWidth : 50,
         frameHeight: 15
       });
-      this.load.spritesheet("laser_beam", "Boltzman_JavaScript/assets/Efects/beam.png",{
-        frameWidth : 10,
-        frameHeight: 19
+      this.load.spritesheet("beam", "assets/Efects/beam.png",{
+        frameWidth : 16,
+        frameHeight: 16
       });
-      this.load.spritesheet("missil_beam", "assets/missel.png",{
-        frameWidth : 10,
-        frameHeight: 19
+      this.load.spritesheet("missel", "assets/Efects/missel.png",{
+        frameWidth : 20.33,
+        frameHeight: 86
       });
       
       
@@ -44,16 +44,16 @@ class Scene1 extends Phaser.Scene {
      });
     //animação disparo
     this.anims.create({
-      key: "beam",
-      frames: this.anims.generateFrameNumbers("laser_beam"),
-      frameRate: 10,
+      key: "beam_anim",
+      frames: this.anims.generateFrameNumbers("beam"),
+      frameRate: 20,
       repeat: -1
     });
 
   this.anims.create({
-    key: "missel",
-    frames: this.anims.generateFrameNumbers("missel_beam"),
-    frameRate: 10,
+    key: "missel_anim",
+    frames: this.anims.generateFrameNumbers("missel"),
+    frameRate: 20,
     repeat: -1
   });
 
