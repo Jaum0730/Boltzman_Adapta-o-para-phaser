@@ -31,8 +31,7 @@ class Scene1 extends Phaser.Scene {
         frameHeight: 32
       });
 
-      
-      
+      this.load.bitmapFont("pixelFont", "assets/fonte/vdc_0.png", "assets/fonte/vdc.xml");
       
     }
   

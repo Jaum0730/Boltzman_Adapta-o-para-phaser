@@ -9,22 +9,34 @@ class Scene2 extends Phaser.Scene{
       this.background2.setPosition(100,100);
       this.background2.setScale(2);
 
+      
+      
       //adicionando inimigos
-        this.ship1 = this.physics.add.sprite(config.width + 10, config.height, "alien");
-        this.ship2 = this.physics.add.sprite(config.width + 10, config.height, "alien");
-        this.ship3 = this.physics.add.sprite(config.width + 50, config.height, "alien");
+      this.enemy1 = this.physics.add.sprite(config.width + 10, config.height, "alien");
+        this.enemy2 = this.physics.add.sprite(config.width + 10, config.height, "alien2");
+        this.enemy3 = this.physics.add.sprite(config.width + 50, config.height, "alien3");
+        
+        //criando grupo
+        this.enemies =  this.physics.add.group();
+        this.enemies.add(this.enemy1);
+        this.enemies.add(this.enemy2);
+        this.enemies.add(this.enemy3);
       //ajustando o tamanho
-        this.ship1.setScale(2);
-        this.ship2.setScale(2);
-        this.ship3.setScale(2);
+        this.enemy1.setScale(2);
+        this.enemy2.setScale(2);
+        this.enemy3.setScale(2);
       //Animação naves aliens
-        this.ship1.play("alien_anim");
-        this.ship2.play("alien_anim");
-        this.ship3.play("alien_anim");
-
+      this.enemy1.play("alien_anim");
+        this.enemy2.play("alien_anim");
+        this.enemy3.play("alien_anim");
       //Interação dos inimigos
+        this.enemy1.setInteractive();
+        this.enemy2.setInteractive();
+        this.enemy3.setInteractive();
+        
+        //this.add.text(20, 20, "Playing game", {font: "25px Arial", fill: "yellow"});
 
-      //Logica para nave do jogador
+        //Logica para nave do jogador
         this.player = this.physics.add.sprite(config.width/2+50, config.height/2, "ship_player");
         this.player.setScale(2);
         //Animação das naves
@@ -35,23 +47,66 @@ class Scene2 extends Phaser.Scene{
         this.player.setCollideWorldBounds(true);
         //botão para disparos
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        
+        
         //grupo com os projteis
         this.projectiles = this.add.group();
-      
-      
-      
-      this.player.setInteractive();
-      this.player.destroyShip = this.destroyShip;
-      this.input.on("gameobjectdown", this.destroyShip, this);
-  
+        //colisores
+        // interação player e alien
+        this.physics.add.overlap(this.player, this.enemies, this.hurtPlayer, null, this);
         
-      
-      this.add.text(20, 20, "Playing game", {font: "25px Arial", fill: "yellow"});
-    };
-    update(){
-      this.aceleration_ship(this.ship1, 5);
-      this.aceleration_ship(this.ship2, 3);
-      this.aceleration_ship(this.ship3, 1);
+        this.physics.add.overlap(this.projectiles, this.enemies, this.hitEnemy, null, this);
+        /*
+        var graphics = this.add.graphics();
+        graphics.fillStyle(0x000000, 1);
+        graphics.beginPath();
+        graphics.moveTo(0, 0);
+        graphics.lineTo(config.width, 0);
+        graphics.lineTo(config.width, 20);
+        graphics.lineTo(0, 20);
+        graphics.lineTo(0, 0);
+        graphics.closePath();
+        graphics.fillPath();
+        */
+        
+        var scoreFormated = this.zeroPad(currentScore, 6);
+        this.scorePainel = this.add.bitmapText(10, 5, "pixelFont", "SCORE: " + scoreFormated, 32);
+
+
+        
+        
+      };
+
+      hurtPlayer(player, enemy){
+        this.Reset_ship(enemy);
+        player.x = config.width/2 - 8; 
+        player.y = config.height - 64;
+      };
+  
+      hitEnemy(projectile, enemy){
+        projectile.destroy();
+        this.Reset_ship(enemy);
+        currentScore += 15;
+        //add pontos
+        var scoreFormated = this.zeroPad(currentScore, 6);
+        this.scorePainel.text = "SCORE: " + scoreFormated
+      };
+
+
+
+
+      zeroPad(number, size){
+        var stringNumber = String(number);
+        while(stringNumber.length < (size || 2)){
+          stringNumber = "0" + stringNumber;
+        }
+        return stringNumber;
+    }
+
+      update(){
+      this.aceleration_ship(this.enemy3, 5);
+      this.aceleration_ship(this.enemy2, 3);
+      this.aceleration_ship(this.enemy1, 1);
     
       
       
@@ -88,6 +143,8 @@ class Scene2 extends Phaser.Scene{
       var aleatorizeX = Phaser.Math.Between(0, config.width);
       ship.x = aleatorizeX
     };
+
+
     
     destroyShip(pointer, gameObject){
       gameObject.setTexture("explosion");
