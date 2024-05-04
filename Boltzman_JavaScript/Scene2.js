@@ -8,7 +8,22 @@ class Scene2 extends Phaser.Scene{
       this.background2 = this.add.tileSprite(0,0,config.width,config.height,"background2");
       this.background2.setPosition(100,100);
       this.background2.setScale(2);
-  
+
+      //adicionando inimigos
+        this.ship1 = this.physics.add.sprite(config.width + 10, config.height, "alien");
+        this.ship2 = this.physics.add.sprite(config.width + 10, config.height, "alien");
+        this.ship3 = this.physics.add.sprite(config.width + 50, config.height, "alien");
+      //ajustando o tamanho
+        this.ship1.setScale(2);
+        this.ship2.setScale(2);
+        this.ship3.setScale(2);
+      //Animação naves aliens
+        this.ship1.play("alien_anim");
+        this.ship2.play("alien_anim");
+        this.ship3.play("alien_anim");
+
+      //Interação dos inimigos
+
       //Logica para nave do jogador
         this.player = this.physics.add.sprite(config.width/2+50, config.height/2, "ship_player");
         this.player.setScale(2);
@@ -34,6 +49,10 @@ class Scene2 extends Phaser.Scene{
       this.add.text(20, 20, "Playing game", {font: "25px Arial", fill: "yellow"});
     };
     update(){
+      this.aceleration_ship(this.ship1, 5);
+      this.aceleration_ship(this.ship2, 3);
+      this.aceleration_ship(this.ship3, 1);
+    
       
       
 

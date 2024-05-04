@@ -26,6 +26,11 @@ class Scene1 extends Phaser.Scene {
         frameWidth : 20.33,
         frameHeight: 86
       });
+      this.load.spritesheet("alien", "assets/Sprite_Sheet_Ships/Alien.png",{
+        frameWidth : 32,
+        frameHeight: 32
+      });
+
       
       
       
@@ -34,7 +39,13 @@ class Scene1 extends Phaser.Scene {
     create() {
       // Create the loading text
       this.loadingText = this.add.text(this.game.renderer.width/2, 430, "Loading game...", { fontSize: '32px Orbitron' });
-
+      //animação dos inimigos
+      this.anims.create({
+        key: "alien_anim",
+        frames: this.anims.generateFrameNumbers("alien"),
+        frameRate: 10,
+        repeat: -1
+     });
       //animação da nave do player
       this.anims.create({
         key: "ship_animation",
