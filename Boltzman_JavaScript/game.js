@@ -9,7 +9,7 @@ var config = {
     width:  window.innerWidth,
     height: 720,
     backgroundColor: 0x000000,
-    scene: [Menu,Scene1,Scene2,GameOver],
+    scene: [Menu,Prologo,Creditos,Scene1,Scene2,GameOver],
     pixelArt: true,
     physics:{
       default: "arcade",
