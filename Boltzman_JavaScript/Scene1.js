@@ -4,6 +4,10 @@ class Scene1 extends Phaser.Scene {
     }
   
     preload(){
+      this.load.spritesheet("Boss", "assets/Sprite_Sheet_Ships/Boss.png",{
+        frameWidth: 400,
+        frameHeight: 400
+      });
       
       this.load.image("background2", "assets/Sprite_Sheet_backgrounds/Background2.png");
       this.load.spritesheet("ship_player", "assets/Sprite_Sheet_Ships/Model1/1.png",{
@@ -94,10 +98,10 @@ class Scene1 extends Phaser.Scene {
         
         });
 
-    //Animação asteroid
+    //Animação Boss
       this.anims.create({
-      key: "asteroid_animation",
-      frames: this.anims.generateFrameNumbers("asteroid"),
+      key: "Boss_anim",
+      frames: this.anims.generateFrameNumbers("Boss"),
       frameRate: 15,
       repeat: -1,
       

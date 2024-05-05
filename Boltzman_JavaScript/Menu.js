@@ -26,6 +26,7 @@ class Menu extends Phaser.Scene{
         }
         
         this.music = this.sound.add("music");
+        this.music.setLoop(true);
         this.music.play(musicConfig);
         
 
@@ -34,7 +35,7 @@ class Menu extends Phaser.Scene{
         
 
 
-        this.playButton = this.add.bitmapText(this.game.renderer.width / 4, 200, 'pixelFont', 'BOLTZMAN LAGRANGE', 70)
+        this.playButton = this.add.bitmapText(this.game.renderer.width /4, 200, 'pixelFont', 'BOLTZMAN LAGRANGE', 70)
         
 
         //=================================Botões do Menu================================//
@@ -77,7 +78,7 @@ class Menu extends Phaser.Scene{
 
     update(){
     
-        this.music.loop = true;
+        
     }
 
     startGame(){

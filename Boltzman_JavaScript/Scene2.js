@@ -12,11 +12,14 @@ class Scene2 extends Phaser.Scene{
       
       
       //adicionando inimigos
+      this.boss_spawnwed = false;
+
       this.enemy1 = this.physics.add.sprite(config.width + 10, config.height, "alien");
       this.enemy2 = this.physics.add.sprite(config.width + 10, config.height, "alien2");
         this.enemy3 = this.physics.add.sprite(config.width + 50, config.height, "alien3");
         
         //criando grupo
+        this.boss   = this.physics.add.group();
         this.enemies =  this.physics.add.group();
         this.enemies.add(this.enemy1);
         this.enemies.add(this.enemy2);
@@ -52,7 +55,8 @@ class Scene2 extends Phaser.Scene{
         //grupo com os projteis
         this.projectiles = this.add.group();
         
-        //colisores
+        //colisores do alien_chefe
+        this.physics.add.overlap(this.projectiles, this.boss, this.hitBoss, null, this);
         
 
 
@@ -63,20 +67,6 @@ class Scene2 extends Phaser.Scene{
 
 
 
-
-
-        /*
-        var graphics = this.add.graphics();
-        graphics.fillStyle(0x000000, 1);
-        graphics.beginPath();
-        graphics.moveTo(0, 0);
-        graphics.lineTo(config.width, 0);
-        graphics.lineTo(config.width, 20);
-        graphics.lineTo(0, 20);
-        graphics.lineTo(0, 0);
-        graphics.closePath();
-        graphics.fillPath();
-        */
        //vidas
         this.life_painel = this.add.bitmapText(config.width - 200, 5, "pixelFont", "Lifes: " + this.lifes, 32);
           
@@ -87,7 +77,7 @@ class Scene2 extends Phaser.Scene{
         this.explosionSound = this.sound.add("audio_explosion")
 
         this.music = this.sound.add("music_gameplay");
-        this.music.loop = true;
+        this.music.setLoop(true);
         this.music.play(musicConfig);
 
 
@@ -166,6 +156,26 @@ class Scene2 extends Phaser.Scene{
 
       };
 
+      hitBoss(projectile, boss){
+        var explosion = new Explosion(this, boss.x, boss.y);
+        explosion.setScale(2);
+
+        projectile.destroy();
+        currentScore += 30;
+
+        var scoreFormated = this.zeroPad(currentScore, 6);
+        this.scorePainel.text = "SCORE: " + scoreFormated
+
+        this.explosionSound.play()
+      }
+
+      Boss_spawn(){
+        if(currentScore >= 10 && !this.boss_spawnwed){
+          this.boss = new Boss(this);
+          this.boss_spawnwed = true;
+        };
+      };
+
 
 
 
@@ -176,12 +186,12 @@ class Scene2 extends Phaser.Scene{
           stringNumber = "0" + stringNumber;
         }
         return stringNumber;
-    }
+    };
 
       update(){
 
         
-        this.music.loop = true;
+        
         this.aceleration_ship(this.enemy3, 5);
         this.aceleration_ship(this.enemy2, 3);
         this.aceleration_ship(this.enemy1, 1);
@@ -190,18 +200,20 @@ class Scene2 extends Phaser.Scene{
       
 
         this.movePlayer();
+        this.Boss_spawn();
+        
 
         for(var i = 0; i < this.projectiles.getChildren().length; i++){
           var beam = this.projectiles.getChildren()[i];
           beam.update();
 
-        }
+        };
 
         if(this.lifes < 0){
         
           this.music.stop();
           this.scene.start("GameOver");
-        }
+        };
       
       
       
