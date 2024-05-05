@@ -2,13 +2,13 @@
 class Scene2 extends Phaser.Scene{
     constructor(){
       super("playGame");
-      this.lifes = lifes;
+      
     }
     create(){
       this.background2 = this.add.tileSprite(0,0,config.width,config.height,"background2");
       this.background2.setPosition(100,100);
       this.background2.setScale(2);
-
+      this.lifes = 4;
       
       
       //adicionando inimigos
@@ -198,7 +198,9 @@ class Scene2 extends Phaser.Scene{
         }
 
         if(this.lifes < 0){
-          this.scene.start("Menu");
+        
+          this.music.stop();
+          this.scene.start("GameOver");
         }
       
       

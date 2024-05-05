@@ -15,14 +15,14 @@ class Menu extends Phaser.Scene{
 
     create(){
 
-        if(!localStorage.getItem('rachel_highScore')){
-			localStorage.setItem('rachel_highScore',0);
+        if(!localStorage.getItem('top_highScore')){
+			localStorage.setItem('top_highScore',0);
 		}
 		
-		if(highScore > localStorage.getItem('rachel_highScore')){
-			localStorage.setItem('rachel_highScore', highScore);
+		if(highScore > localStorage.getItem('top_highScore')){
+			localStorage.setItem('top_highScore', highScore);
 		} else {
-			highScore = localStorage.getItem('rachel_highScore');
+			highScore = localStorage.getItem('top_highScore');
         }
         
         this.music = this.sound.add("music");
@@ -85,7 +85,7 @@ class Menu extends Phaser.Scene{
     }
 
 }
-var lifes = 4;
+//var lifes = 4;
 var highScore = 0;
 var currentScore = 0;
 var musicConfig = {
