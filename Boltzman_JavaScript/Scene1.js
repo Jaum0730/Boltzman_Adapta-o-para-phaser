@@ -31,7 +31,15 @@ class Scene1 extends Phaser.Scene {
         frameHeight: 32
       });
 
-      this.load.bitmapFont("pixelFont", "assets/fonte/vdc_0.png", "assets/fonte/vdc.xml");
+      
+
+      
+
+      this.load.audio("audio_beam", "assets/snd/beam.ogg");
+      this.load.audio("audio_explosion", "assets/snd/explosion.ogg");
+
+      this.load.audio("music_gameplay", "assets/snd/gameplay.ogg");
+
       
     }
   
@@ -78,6 +86,14 @@ class Scene1 extends Phaser.Scene {
       hideOnComplete: true,
       });
 
+      this.anims.create({
+        key: "heart_anim",
+        frames: this.anims.generateFrameNumbers("heart"),
+        frameRate: 10,
+        repeat: -1,
+        
+        });
+
     //Animação asteroid
       this.anims.create({
       key: "asteroid_animation",
@@ -103,9 +119,10 @@ class Scene1 extends Phaser.Scene {
 
 
       
-        
+      
         
     }
+    
     
   }
   

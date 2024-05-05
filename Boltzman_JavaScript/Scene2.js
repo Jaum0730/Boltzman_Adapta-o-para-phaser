@@ -2,7 +2,7 @@
 class Scene2 extends Phaser.Scene{
     constructor(){
       super("playGame");
-      
+      this.lifes = lifes;
     }
     create(){
       this.background2 = this.add.tileSprite(0,0,config.width,config.height,"background2");
@@ -13,7 +13,7 @@ class Scene2 extends Phaser.Scene{
       
       //adicionando inimigos
       this.enemy1 = this.physics.add.sprite(config.width + 10, config.height, "alien");
-        this.enemy2 = this.physics.add.sprite(config.width + 10, config.height, "alien2");
+      this.enemy2 = this.physics.add.sprite(config.width + 10, config.height, "alien2");
         this.enemy3 = this.physics.add.sprite(config.width + 50, config.height, "alien3");
         
         //criando grupo
@@ -34,7 +34,7 @@ class Scene2 extends Phaser.Scene{
         this.enemy2.setInteractive();
         this.enemy3.setInteractive();
         
-        //this.add.text(20, 20, "Playing game", {font: "25px Arial", fill: "yellow"});
+        
 
         //Logica para nave do jogador
         this.player = this.physics.add.sprite(config.width/2+50, config.height/2, "ship_player");
@@ -53,10 +53,18 @@ class Scene2 extends Phaser.Scene{
         this.projectiles = this.add.group();
         
         //colisores
+        
+
+
         // interação player e alien
         this.physics.add.overlap(this.player, this.enemies, this.hurtPlayer, null, this);
         
         this.physics.add.overlap(this.projectiles, this.enemies, this.hitEnemy, null, this);
+
+
+
+
+
         /*
         var graphics = this.add.graphics();
         graphics.fillStyle(0x000000, 1);
@@ -69,16 +77,29 @@ class Scene2 extends Phaser.Scene{
         graphics.closePath();
         graphics.fillPath();
         */
-        
+       //vidas
+        this.life_painel = this.add.bitmapText(config.width - 200, 5, "pixelFont", "Lifes: " + this.lifes, 32);
+          
         var scoreFormated = this.zeroPad(currentScore, 6);
         this.scorePainel = this.add.bitmapText(10, 5, "pixelFont", "SCORE: " + scoreFormated, 32);
+
+        this.beamSound = this.sound.add("audio_beam");
+        this.explosionSound = this.sound.add("audio_explosion")
+
+        this.music = this.sound.add("music_gameplay");
+        this.music.loop = true;
+        this.music.play(musicConfig);
 
 
         
         
       };
 
+      
+
       hurtPlayer(player, enemy){
+        this.lifes--;
+        this.life_painel.text = "Lifes: " + this.lifes
         
         this.Reset_ship(enemy);
         
@@ -87,6 +108,8 @@ class Scene2 extends Phaser.Scene{
         }
         
         var explosion = new Explosion(this, this.player.x, player.y);
+        this.explosionSound.play();
+        
         this.player.disableBody(true, true);
         
         
@@ -96,9 +119,13 @@ class Scene2 extends Phaser.Scene{
           callbackScope: this,
           loop: false
         });
+
+        
         
       };
+
       Reset_Player(){
+        
         var x = config.width/2 - 8;
         var y =  config.height + 64;
         this.player.enableBody(true, x, y, true, true);
@@ -112,9 +139,12 @@ class Scene2 extends Phaser.Scene{
             repeat:0,
             onComplete: function(){
               this.player.alpha = 1;
+              
             },
             callbackScope: this
           });
+
+          
   
   
   
@@ -132,7 +162,10 @@ class Scene2 extends Phaser.Scene{
         var scoreFormated = this.zeroPad(currentScore, 6);
         this.scorePainel.text = "SCORE: " + scoreFormated
 
+        this.explosionSound.play()
+
       };
+
 
 
 
@@ -146,20 +179,27 @@ class Scene2 extends Phaser.Scene{
     }
 
       update(){
-      this.aceleration_ship(this.enemy3, 5);
-      this.aceleration_ship(this.enemy2, 3);
-      this.aceleration_ship(this.enemy1, 1);
+
+        
+        this.music.loop = true;
+        this.aceleration_ship(this.enemy3, 5);
+        this.aceleration_ship(this.enemy2, 3);
+        this.aceleration_ship(this.enemy1, 1);
     
       
       
 
-      this.movePlayer();
+        this.movePlayer();
 
-      for(var i = 0; i < this.projectiles.getChildren().length; i++){
-        var beam = this.projectiles.getChildren()[i];
-        beam.update();
+        for(var i = 0; i < this.projectiles.getChildren().length; i++){
+          var beam = this.projectiles.getChildren()[i];
+          beam.update();
 
-      }
+        }
+
+        if(this.lifes < 0){
+          this.scene.start("Menu");
+        }
       
       
       
@@ -170,6 +210,7 @@ class Scene2 extends Phaser.Scene{
     Laser_Shot(){
       var beam = new Beam(this);
       beam.setScale(2);
+      this.beamSound.play();
       
     };
 
