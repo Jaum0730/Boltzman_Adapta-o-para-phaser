@@ -51,6 +51,7 @@ class Scene2 extends Phaser.Scene{
         
         //grupo com os projteis
         this.projectiles = this.add.group();
+        
         //colisores
         // interação player e alien
         this.physics.add.overlap(this.player, this.enemies, this.hurtPlayer, null, this);
@@ -78,18 +79,59 @@ class Scene2 extends Phaser.Scene{
       };
 
       hurtPlayer(player, enemy){
+        
         this.Reset_ship(enemy);
-        player.x = config.width/2 - 8; 
-        player.y = config.height - 64;
+        
+        if(this.player.alpha < 1){
+          return;
+        }
+        
+        var explosion = new Explosion(this, this.player.x, player.y);
+        this.player.disableBody(true, true);
+        
+        
+        this.time.addEvent({
+          delay: 1000,
+          callback: this.Reset_Player,
+          callbackScope: this,
+          loop: false
+        });
+        
       };
+      Reset_Player(){
+        var x = config.width/2 - 8;
+        var y =  config.height + 64;
+        this.player.enableBody(true, x, y, true, true);
   
+        this.player.alpha = 0.5;
+          var tween = this.tweens.add({
+            targets: this.player,
+            y: config.height - 64,
+            ease: 'Power1',
+            duration: 1500,
+            repeat:0,
+            onComplete: function(){
+              this.player.alpha = 1;
+            },
+            callbackScope: this
+          });
+  
+  
+  
+      };
+      
       hitEnemy(projectile, enemy){
+
+        var explosion = new Explosion(this, enemy.x, enemy.y);
+        explosion.setScale(2);
+
         projectile.destroy();
         this.Reset_ship(enemy);
         currentScore += 15;
         //add pontos
         var scoreFormated = this.zeroPad(currentScore, 6);
         this.scorePainel.text = "SCORE: " + scoreFormated
+
       };
 
 
@@ -145,6 +187,7 @@ class Scene2 extends Phaser.Scene{
     };
 
 
+
     
     destroyShip(pointer, gameObject){
       gameObject.setTexture("explosion");
@@ -169,8 +212,9 @@ class Scene2 extends Phaser.Scene{
           
         }
         if(Phaser.Input.Keyboard.JustDown(this.spacebar)){
-          console.log("fogo!");
-          this.Laser_Shot();
+          if(this.player.active){
+            console.log("fogo!");
+            this.Laser_Shot();}
         }
         
       };
