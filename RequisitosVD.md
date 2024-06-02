@@ -1,8 +1,13 @@
 # `<Boltzman Lagrange>`
 
+<<<<<<< HEAD
 * Link do jogo: [https://github.com/Jaum0730/Boltzman_Adapta-o-para-phaser/tree/main](https://github.com/Jaum0730/Boltzman_Adapta-o-para-phaser)
 * Link da versão final para deploy: [https://github.com/Jaum0730/Parcel_Bolztman.git](https://github.com/Jaum0730/Parcel_Bolztman.git)
 * Link do jogo online: [https://parcel-boltzman.vercel.app/](https://parcel-boltzman.vercel.app/)
+=======
+* Link do jogo: https://github.com/Jaum0730/Boltzman_Adapta-o-para-phaser/tree/main
+* Link do vercel: https://parcel-boltzman-dhsrg4cdi-jaum0730s-projects.vercel.app
+>>>>>>> 6677c9b33b655d51337a685098f8e31acf581c10
 
 ## Motivação
 
